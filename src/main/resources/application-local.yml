@@ -1,0 +1,20 @@
+server:
+  port : 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/car-parking
+    password: cloud
+    username: cloud
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        id:
+          new_generator_mappings: true
+logging:
+  level:
+    org.springframework: ERROR
+    com.myworld: DEBUG

@@ -1,0 +1,67 @@
+buildscript {
+    ext {
+        springBootVersion = '2.3.1.RELEASE'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+}
+
+group 'com.myworld.car.parking'
+version '1.0-SNAPSHOT'
+
+
+configurations {
+    implementation {
+        exclude module: "spring-boot-starter-logging"
+        exclude module: "logback-classic"
+    }
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.flywaydb:flyway-core:6.5.4'
+    implementation 'io.springfox:springfox-swagger-ui:2.10.5'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'org.postgresql:postgresql:9.4-1200-jdbc41'
+
+
+    compileOnly "org.projectlombok:lombok:1.16.16"
+    annotationProcessor 'org.projectlombok:lombok:1.16.16'
+
+    testImplementation platform("org.spockframework:spock-bom:2.0-M1-groovy-2.5")
+    testImplementation 'org.codehaus.groovy:groovy-all:2.5.8'
+    testImplementation 'org.spockframework:spock-core:2.0-M1-groovy-2.5'
+    testImplementation 'com.h2database:h2:1.4.200'
+    testImplementation 'org.spockframework:spock-spring:2.0-M1-groovy-2.5'
+    testImplementation 'com.blogspot.toomuchcoding:spock-subjects-collaborators-extension:1.2.2'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+
+}
+
+
+test {
+    useJUnitPlatform()
+}
